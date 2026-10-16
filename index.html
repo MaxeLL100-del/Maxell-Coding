@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#F7F9FC">
+  <meta name="description" content="Ruang belajar Python 3 lokal, offline-first, dengan editor kode dan runtime WebAssembly.">
+  <title>Arctic Focus Studio — Belajar Python 3</title>
+  <link rel="stylesheet" href="assets/vendor/codemirror/lib/codemirror.css">
+  <link rel="stylesheet" href="assets/vendor/codemirror/addon/dialog/dialog.css">
+  <link rel="stylesheet" href="assets/css/app.css">
+  <script defer src="assets/vendor/codemirror/lib/codemirror.js"></script>
+  <script defer src="assets/vendor/codemirror/mode/python/python.js"></script>
+  <script defer src="assets/vendor/codemirror/addon/edit/closebrackets.js"></script>
+  <script defer src="assets/vendor/codemirror/addon/edit/matchbrackets.js"></script>
+  <script defer src="assets/vendor/codemirror/addon/dialog/dialog.js"></script>
+  <script defer src="assets/vendor/codemirror/addon/selection/active-line.js"></script>
+  <script defer src="assets/vendor/codemirror/addon/search/searchcursor.js"></script>
+  <script defer src="assets/vendor/codemirror/addon/search/search.js"></script>
+  <script defer src="assets/js/app.js"></script>
+</head>
+<body>
+  <a class="skip-link" href="#workspace">Langsung ke workspace</a>
+  <header class="topbar">
+    <div class="brand" aria-label="Arctic Focus Studio">
+      <span class="brand-mark" aria-hidden="true">
+        <svg viewBox="0 0 32 32" fill="none"><path d="M16 3v26M4.75 9.5l22.5 13M4.75 22.5l22.5-13M11.5 5.4 16 9.9l4.5-4.5M11.5 26.6 16 22.1l4.5 4.5M4.7 16l4.5-4.5M4.7 16l4.5 4.5M27.3 16l-4.5-4.5M27.3 16l-4.5 4.5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </span>
+      <span class="brand-copy"><strong>Arctic Focus</strong><small>STUDIO · PYTHON 3</small></span>
+    </div>
+    <div class="topbar-center">
+      <span class="file-icon" aria-hidden="true">Py</span>
+      <input id="file-name" class="file-name" aria-label="Nama file aktif" value="main.py" maxlength="80" spellcheck="false">
+      <span id="save-state" class="save-state">Tersimpan lokal</span>
+    </div>
+    <div class="topbar-actions">
+      <div id="runtime-pill" class="status-pill status-warn" role="status" aria-live="polite"><span class="status-dot"></span><span id="runtime-label">Memeriksa runtime…</span></div>
+      <button id="save-btn" class="icon-button" type="button" title="Simpan (Ctrl+S)" aria-label="Simpan file"><span aria-hidden="true">↓</span><span class="button-label">Simpan</span></button>
+      <button id="show-sidebar-btn" class="icon-button" type="button" title="Tampilkan materi" aria-label="Tampilkan navigasi materi"><span aria-hidden="true">☷</span></button>
+      <button id="settings-btn" class="icon-button" type="button" title="Pengaturan editor" aria-label="Pengaturan editor"><span aria-hidden="true">⚙</span></button>
+      <button id="shortcuts-btn" class="icon-button" type="button" title="Bantuan shortcut (F1)" aria-label="Bantuan shortcut"><span aria-hidden="true">⌘</span></button>
+      <button id="run-btn" class="run-button" type="button"><span aria-hidden="true">▶</span> Run <kbd>Ctrl ↵</kbd></button>
+      <button id="stop-btn" class="stop-button is-hidden" type="button">■ Stop</button>
+    </div>
+  </header>
+
+  <main id="workspace" class="workspace">
+    <aside id="sidebar" class="sidebar panel" aria-label="Navigasi pembelajaran">
+      <div class="sidebar-top">
+        <div class="eyebrow">LEARNING PATH</div>
+        <div class="sidebar-title-row"><h2>Materi Python</h2><button id="collapse-sidebar" class="quiet-icon" type="button" aria-label="Ciutkan navigasi" title="Ciutkan navigasi">‹</button></div>
+        <label class="search-field"><span aria-hidden="true">⌕</span><input id="lesson-search" type="search" placeholder="Cari materi…" autocomplete="off"><kbd>/</kbd></label>
+        <div class="progress-block"><div class="progress-meta"><span>Progres belajar</span><strong id="progress-percent">0%</strong></div><div class="progress-track"><span id="progress-bar"></span></div><small id="progress-detail">0 dari 12 pelajaran selesai</small></div>
+      </div>
+      <nav id="lesson-nav" class="lesson-nav" aria-label="Daftar pelajaran"></nav>
+      <div class="sidebar-footer"><span class="offline-icon" aria-hidden="true">●</span><div><strong>Belajar tanpa akun</strong><small>Progres tersimpan di perangkat ini</small></div></div>
+    </aside>
+
+    <section id="learning-panel" class="learning-panel panel" aria-label="Materi pembelajaran">
+      <div class="learning-scroll">
+        <div class="intro-block">
+          <div class="eyebrow">YOUR PERSONAL CODING SPACE</div>
+          <h1>Learn by coding.<br><span>Master by building.</span></h1>
+          <p>Pelajari Python langkah demi langkah. Tulis kode, jalankan program, pahami hasilnya, dan bangun proyekmu sendiri—langsung dari perangkatmu.</p>
+          <div class="tagline"><span>LOCAL-FIRST</span><i></i><span>OFFLINE-READY</span><i></i><span>PYTHON 3</span></div>
+          <button id="mobile-lessons-btn" class="secondary-button mobile-lessons-btn" type="button">☷ Daftar materi</button>
+        </div>
+        <div class="lesson-heading-row"><div><div class="eyebrow" id="lesson-module">MODUL 01 · DASAR PYTHON</div><h2 id="lesson-title">Mulai dengan Python</h2></div><button id="bookmark-btn" class="bookmark-btn" type="button" aria-pressed="false" title="Simpan bookmark"><span aria-hidden="true">☆</span><span class="sr-only">Bookmark pelajaran</span></button></div>
+        <div id="lesson-content" class="lesson-content"></div>
+        <div class="lesson-controls"><button id="mark-done-btn" class="secondary-button" type="button">Tandai selesai</button><button id="next-lesson-btn" class="text-button" type="button">Pelajaran berikutnya <span aria-hidden="true">→</span></button></div>
+      </div>
+    </section>
+
+    <section id="coding-panel" class="coding-panel" aria-label="Editor dan output Python">
+      <div class="editor-card panel">
+        <div class="editor-toolbar">
+          <div class="editor-tab"><span class="python-file-icon">Py</span><span id="editor-tab-name">main.py</span><span id="dirty-dot" class="dirty-dot is-hidden" title="Perubahan belum disimpan"></span></div>
+          <div class="editor-tools">
+            <button id="import-btn" class="tool-button" type="button" title="Buka file .py">Buka</button>
+            <input id="file-input" type="file" accept=".py,text/x-python,text/plain" hidden>
+            <button id="export-btn" class="tool-button" type="button" title="Unduh file .py">Ekspor .py</button>
+            <button id="font-down-btn" class="tool-button compact-tool" type="button" aria-label="Perkecil font editor">A−</button>
+            <button id="font-up-btn" class="tool-button compact-tool" type="button" aria-label="Perbesar font editor">A+</button>
+            <button id="focus-btn" class="tool-button focus-toggle" type="button" aria-pressed="false">Fokus <span aria-hidden="true">↗</span></button>
+          </div>
+        </div>
+        <div id="editor-host" class="editor-host"><textarea id="code-editor" aria-label="Editor kode Python" spellcheck="false"># Mulai dari sini — jalankan kode pertamamu!
+nama = "Python learner"
+print("Halo, " + nama + "!")
+print("Selamat belajar Python 3.")</textarea></div>
+        <div class="editor-statusbar"><span><span class="status-dot status-dot-blue"></span> Python</span><span id="cursor-position">Ln 1, Col 1</span><span id="indent-status">Indentasi: 4 spasi</span><span class="editor-status-spacer"></span><span id="runtime-version">Runtime belum dimuat</span></div>
+      </div>
+
+      <section class="console-card panel" aria-label="Konsol output">
+        <div class="console-toolbar"><div class="console-title"><span class="console-glyph" aria-hidden="true">›_</span><h2>Console</h2><span id="execution-badge" class="execution-badge">SIAP</span></div><div class="console-actions"><button id="copy-output-btn" class="tool-button" type="button">Salin output</button><button id="clear-output-btn" class="tool-button" type="button">Bersihkan</button><button id="toggle-console-btn" class="quiet-icon" type="button" aria-label="Ciutkan console" title="Ciutkan console">⌄</button></div></div>
+        <div id="console-output" class="console-output" role="log" aria-live="polite" aria-relevant="additions text"><div class="console-placeholder"><span class="placeholder-mark">✓</span><div><strong>Output program akan muncul di sini.</strong><p>Tekan <kbd>Ctrl</kbd> + <kbd>Enter</kbd> untuk menjalankan kode.</p></div></div></div>
+        <form id="stdin-form" class="stdin-form is-hidden"><label id="stdin-label" for="stdin-input">Program membutuhkan input</label><div class="stdin-row"><input id="stdin-input" autocomplete="off" spellcheck="false" placeholder="Ketik jawaban lalu Enter"><button type="submit" class="primary-small">Kirim input</button></div></form>
+        <div class="console-footer"><span id="execution-status"><span class="tiny-dot"></span> Menunggu eksekusi</span><span id="last-run-time">—</span></div>
+      </section>
+    </section>
+  </main>
+
+  <nav class="mobile-panel-tabs" aria-label="Panel workspace di perangkat kecil">
+    <button type="button" data-mobile-panel="learn" aria-pressed="false"><span aria-hidden="true">▤</span> Belajar</button>
+    <button type="button" data-mobile-panel="code" aria-pressed="true"><span aria-hidden="true">{ }</span> Editor</button>
+    <button type="button" data-mobile-panel="output" aria-pressed="false"><span aria-hidden="true">›_</span> Output</button>
+  </nav>
+
+  <dialog id="settings-dialog" class="app-dialog">
+    <form method="dialog" class="dialog-form">
+      <div class="dialog-head"><div><div class="eyebrow">PREFERENCES</div><h2>Pengaturan editor</h2></div><button class="quiet-icon dialog-close" value="cancel" aria-label="Tutup pengaturan">×</button></div>
+      <label class="setting-row"><span><strong>Ukuran font</strong><small>Sesuaikan keterbacaan kode</small></span><div class="setting-control"><button id="settings-font-down" class="tool-button" type="button" aria-label="Kurangi ukuran font">−</button><output id="font-size-value">15 px</output><button id="settings-font-up" class="tool-button" type="button" aria-label="Tambah ukuran font">+</button></div></label>
+      <label class="setting-row"><span><strong>Indentasi</strong><small>Jumlah spasi untuk satu level</small></span><select id="tab-size-select"><option value="2">2 spasi</option><option value="4" selected>4 spasi</option><option value="8">8 spasi</option></select></label>
+      <label class="setting-row"><span><strong>Word wrap</strong><small>Lipat baris panjang agar tetap terlihat</small></span><input id="wrap-toggle" type="checkbox" checked></label>
+      <div class="dialog-actions"><button class="secondary-button" value="cancel">Selesai</button></div>
+    </form>
+  </dialog>
+
+  <dialog id="shortcuts-dialog" class="app-dialog">
+    <form method="dialog" class="dialog-form">
+      <div class="dialog-head"><div><div class="eyebrow">KEYBOARD-FIRST</div><h2>Shortcut keyboard</h2></div><button class="quiet-icon dialog-close" value="cancel" aria-label="Tutup bantuan shortcut">×</button></div>
+      <div class="shortcut-list">
+        <div><span>Jalankan kode</span><kbd>Ctrl</kbd><b>+</b><kbd>Enter</kbd></div>
+        <div><span>Simpan draft lokal</span><kbd>Ctrl</kbd><b>+</b><kbd>S</kbd></div>
+        <div><span>Undo / Redo</span><kbd>Ctrl</kbd><b>+</b><kbd>Z</kbd><small>·</small><kbd>Ctrl</kbd><b>+</b><kbd>Shift</kbd><b>+</b><kbd>Z</kbd></div>
+        <div><span>Cari di editor</span><kbd>Ctrl</kbd><b>+</b><kbd>F</kbd></div>
+        <div><span>Komentari baris</span><kbd>Ctrl</kbd><b>+</b><kbd>/</kbd></div>
+        <div><span>Indent / outdent</span><kbd>Tab</kbd><small>/</small><kbd>Shift</kbd><b>+</b><kbd>Tab</kbd></div>
+        <div><span>Tutup dialog / menu</span><kbd>Esc</kbd></div>
+        <div><span>Bantuan shortcut</span><kbd>F1</kbd></div>
+      </div>
+      <p class="dialog-note">Shortcut memakai Ctrl pada Windows/Linux dan Command pada macOS untuk kombinasi yang didukung. Shortcut browser bawaan yang tidak diperlukan tidak diambil alih.</p>
+      <div class="dialog-actions"><button class="secondary-button" value="cancel">Tutup</button></div>
+    </form>
+  </dialog>
+
+  <div id="toast-region" class="toast-region" role="status" aria-live="polite"></div>
+</body>
+</html>
